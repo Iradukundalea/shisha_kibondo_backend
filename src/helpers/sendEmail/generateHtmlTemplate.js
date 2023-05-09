@@ -327,7 +327,7 @@ const generateHtmlTemplate = (link, email)=>{
                                                                                                                                         style="font-family: inherit; text-align: center">
                                                                                                                                         <span
                                                                                                                                             style="font-size: 18px">
-                                                                                                                                            Hello <b>${email}</b>, You are receiving this email because you are registering to <b> Smart health </b>, so verify your email if it is you, if not don't verify!
+                                                                                                                                            Hello <b>${email}</b>, You are receiving this email because you are registering to <b> automated shisha kibondo system </b>!
                                                                                                                                         </span>
                                                                                                                                     </div>
                                                                                                                                     <div>
