@@ -1,6 +1,7 @@
 import express from'express'
 const app=express()
 import authRoute from'./routes/authRoutes'
+import {beneficial} from './routes/beneficialRoute'
 import swaggerUI from'swagger-ui-express'
 import swaggerDocs from'./documentation'
 import cors from 'cors'
@@ -19,6 +20,8 @@ app.use(bodyParser.json())
 app.set('view engine', 'ejs')
 
 app.use('/api',authRoute)
+app.use('/api',beneficial)
+
 
 
 
