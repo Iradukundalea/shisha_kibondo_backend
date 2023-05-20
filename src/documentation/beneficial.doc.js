@@ -42,9 +42,7 @@
  *                               type: string 
  *                           village:
  *                               type: string 
- *                           nurseId:
- *                               type: string 
-
+ 
 
 
 

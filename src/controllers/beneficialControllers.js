@@ -13,17 +13,21 @@ const addBeneficial = async (req, res) => {
     district,
     sector,
     cell,
-    village,
-    nurseId
+    village
+   
   } = req.body;
+  const  nurseId = req.user.id
 
   try {
     const nurse = await User.findOne({ where: { id: nurseId } });
     if (!nurse) {
       return res.status(400).json({ message: 'You are not allowed to add a beneficiary.' });
     }
-
-    const createdBeneficial = await beneficial.create({
+    const benef=await beneficial.findOne({where:{identityNumber}})
+    if (benef) {
+      return res.status(400).json({message:'beneficial already exist'})
+    }
+       const createdBeneficial = await beneficial.create({
       identityNumber,
       firstName,
       lastName,

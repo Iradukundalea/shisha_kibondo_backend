@@ -7,7 +7,7 @@ import isAuthenticated from '../middlewares/Authorization'
 
 
 
-beneficial.post('/addBeneficial', addBeneficial)
+beneficial.post('/addBeneficial',isAuthenticated, addBeneficial)
 
 
 module.exports={beneficial}
