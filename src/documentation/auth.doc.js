@@ -4,6 +4,8 @@
  * /signup/nurse:
  *      post:
  *          tags: [Authentication]
+ *          security:
+ *              - BearerToken: []
  *          summary: This helps to register a new beneficial.
  *          description: beneficial registration!
  *          requestBody:
@@ -45,6 +47,8 @@
  * /signup/advisor:
  *      post:
  *          tags: [Authentication]
+ *          security:
+ *              - BearerToken: []
  *          summary: This helps to register a new beneficial.
  *          description: beneficial registration!
  *          requestBody:
@@ -78,6 +82,8 @@
  *          responses:
  *              201:
  *                  description: Successfully user craeted!
+ *              401: 
+ *                  description: Not authorized!
  *              400:
  *                  description: Bad request
  *              500:

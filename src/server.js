@@ -31,7 +31,7 @@ app.use('/api',guardian)
 
 app.use("/api-docs", swaggerUI.serve, swaggerUI.setup(swaggerDocs));
 
-const PORT=process.env.PORT||4000
+const PORT=process.env.PORT|| 4000
 
 app.listen(PORT,()=>{
     console.log(`server connected on ${PORT}` );

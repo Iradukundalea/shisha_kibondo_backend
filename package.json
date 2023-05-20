@@ -5,10 +5,11 @@
   "main": "index.js",
   "scripts": {
     "build": "babel src -d dist",
-    "db": "npx sequelize db:migrate ",
-    "unmigrate": "npx sequelize-cli db:migrate:undo:all",
+    "db:migrate": "npx sequelize db:migrate",
+    "db:unmigrate": "npx sequelize-cli db:migrate:undo:all",
     "dev": "nodemon --exec babel-node  src/server.js",
-    "start": "npm run build &&npm run unmigrate && npm run db && node dist/server.js"
+    "start": "npm run build &&npm run unmigrate && npm run db && node dist/server.js",
+    "seed:admin": "npx sequelize-cli db:seed --seed 20230520121119-seed-admin"
   },
   "keywords": [],
   "author": "",
