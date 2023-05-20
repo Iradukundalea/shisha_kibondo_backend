@@ -1,11 +1,14 @@
-PORT=
-DEV_DB_USERNAME=""
-DEV_DB_PASSWORD=""
-DEV_DB_NAME=""
-DEV_DB_HOST="127.0.0.1"
+PORT=5000
 
-SECRETKEY= ""
-EMAIL=
-PASSWORD=
-BASE_URL=http://localhost:port/api
-OPENAI_api=
+DEV_DB_USERNAME=xxxxxxxxxx
+DEV_DB_PASSWORD=xxxxxxxxxx
+DEV_DB_NAME=xxxxxxxxxx
+DEV_DB_HOST=xxxxxxxxxx
+
+SECRETKEY=xxxxxxxxxx
+EMAIL=xxxxxxxxxx
+PASSWORD=xxxxxxxxxx
+BASE_URL=http://localhost:5000
+
+ADMIN_EMAIL=xxxxxxxxxx
+ADMIN_PASSWORD=xxxxxxxxxx
