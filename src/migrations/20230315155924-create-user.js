@@ -25,7 +25,7 @@ module.exports = {
         type: DataTypes.STRING
       },
       role: {
-        type: DataTypes.ENUM('Nurse', 'umujyanama wubuzima', 'other..'),
+        type: DataTypes.ENUM('Nurse', 'umujyanama wubuzima', 'admin'),
         allowNull: false,
        },
         degree: {
