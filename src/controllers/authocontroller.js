@@ -11,10 +11,13 @@
 
 
 
-  // signup
+  // signup/nurse
 
-  const signUp=async(req,res)=>{
-      const{firstName,lastName,email,telephone,password,specialized}=req.body
+  const addNurse=async(req,res)=>{
+      const{firstName,lastName,sex,degree,email,telephone,password,specialized}=req.body
+
+      req.body.role = 'Nurse'
+    
       try{ 
           const user = await userExist(email)
       if(user){
@@ -42,6 +45,42 @@
         }
         
       }
+
+
+  // signup/umujyanama wubuzima
+
+  const addAdvisor=async(req,res)=>{
+    const{firstName,lastName,sex,degree,email,telephone,password,specialized}=req.body
+
+    req.body.role = 'umujyanama wubuzima'
+  
+    try{ 
+        const user = await userExist(email)
+    if(user){
+      return res.json({success: false, statusCode: 409, message: 'email already exists'})
+    }
+    const puser= await phoneExist(telephone)
+    if(puser){
+      return res.json({success: false, statusCode: 409, message: 'phone already exist'})
+    }
+    const newUser = await createUser(req.body)
+
+    if(newUser){
+        const userToken = assignToken(user)
+    sendVerificationEmail(userToken, newUser)
+
+  
+  
+        return res.status(201).json({success:true,statusCode:201,regToken: userToken,data: newUser
+        });
+        
+      }
+  
+      } catch (error) {
+        return res.json({success: false, statusCode: 500, error: error.message, message:'Internal server error'})
+      }
+      
+    }
     
 
   //   login
@@ -143,4 +182,4 @@ const countUsers = async (req, res) => {
 };
 
 
-  module.exports={signUp,login,getUser,verifyUser,getAllDoctors,countUsers,signout}
+  module.exports={addNurse,addAdvisor,login,getUser,verifyUser,getAllDoctors,countUsers,signout}

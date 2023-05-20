@@ -1,9 +1,9 @@
 'use strict';
 const {
-  Model, ForeignKeyConstraintError
+  Model
 } = require('sequelize');
 module.exports = (sequelize, DataTypes) => {
-  class beneficial extends Model {
+  class Guardian extends Model {
     /**
      * Helper method for defining associations.
      * This method is not a part of Sequelize lifecycle.
@@ -11,15 +11,12 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       // define association here
-      this.belongsTo(models.User,{foreignKey:'nurseId'})
-      this.hasMany(models.Guardian, {
-        foreignKey: 'beneficialId',
-        onDelete: "CASCADE",
-        onUpdate: "CASCADE",
-      });
+
+      this.belongsTo(models.beneficial,{foreignKey:'beneficialId'})
+
     }
   }
-  beneficial.init({
+  Guardian.init({
     id: {
       allowNull: false,
       defaultValue:DataTypes.UUIDV4,
@@ -45,15 +42,6 @@ module.exports = (sequelize, DataTypes) => {
       allowNull: false,
       defaultValue: 'other..'
     },
-    status:{
-      type: DataTypes.ENUM('pregnant', 'children'),
-      allowNull: false,
-      defaultValue: 'pregnant'
-    },
-    healthCenter:{
-    type:DataTypes.STRING,
-    allowNull:false
-    },
     province:{
      type:DataTypes.STRING,
      allowNull:false
@@ -74,14 +62,14 @@ module.exports = (sequelize, DataTypes) => {
       type:DataTypes.STRING,
       allowNull:false
     },
-    nurseId:{
+    beneficialId:{
       type:DataTypes.UUID,
       allowNull: false,
       defaultValue:DataTypes.UUIDV4,
     }
   }, {
     sequelize,
-    modelName: 'beneficial',
+    modelName: 'Guardian',
   });
-  return beneficial;
+  return Guardian;
 };

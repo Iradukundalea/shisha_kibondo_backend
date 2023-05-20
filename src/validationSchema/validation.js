@@ -8,6 +8,8 @@ const schema = {
     specialized:Joi.string(),
   
     telephone: Joi.string(),
+    sex:Joi.string(),
+    degree:Joi.string(),
                 
                 
       firstName: Joi.string()

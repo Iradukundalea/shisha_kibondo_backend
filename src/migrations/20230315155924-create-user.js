@@ -27,11 +27,11 @@ module.exports = {
       role: {
         type: DataTypes.ENUM('Nurse', 'umujyanama wubuzima', 'other..'),
         allowNull: false,
-        defaultValue: 'other..'},
+       },
         degree: {
-          type: DataTypes.ENUM('primary', 'secondary', 'masters','Phd','other..'),
+          type: DataTypes.STRING,
           allowNull: false,
-          defaultValue: 'other..'},
+          },
         sex: {
           type:DataTypes.STRING,
           allowNull:false

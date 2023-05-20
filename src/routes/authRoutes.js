@@ -10,7 +10,9 @@ import isAuthenticated from '../middlewares/Authorization'
           
  
 
-router.post('/signup',AuthValidation.verifySignup,usercont.signUp)
+router.post('/signup/nurse',AuthValidation.verifySignup,usercont.addNurse)
+router.post('/signup/advisor',AuthValidation.verifySignup,usercont.addAdvisor)
+
 
 
 router.post('/login', checkVerify, usercont.login)

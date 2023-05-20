@@ -46,17 +46,15 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.STRING
     },
     role: {
-      type: DataTypes.ENUM('Nurse', 'umujyanama wubuzima', 'other..'),
+      type: DataTypes.ENUM('Nurse', 'umujyanama wubuzima'),
       allowNull: false,
-      defaultValue: 'other..'},
-      degree: {
-        type: DataTypes.ENUM('primary', 'secondary', 'masters','Phd','other..'),
-        allowNull: false,
-        defaultValue: 'other..'},
+      },
+      degree:{
+        type: DataTypes.STRING
+      },
       sex: {
-        type: DataTypes.ENUM('male', 'female', 'other..'),
+        type: DataTypes.ENUM('male', 'female','other'),
       allowNull: false,
-      defaultValue: 'other..'
         },
     isVerified: {
       type:DataTypes.BOOLEAN,
