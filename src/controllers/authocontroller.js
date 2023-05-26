@@ -110,9 +110,11 @@
           lastActivity: new Date().toJSON(),
         });
         
-        return res.status(200).json({
+
+        return delete user.get().password &&  res.status(200).json({
           loginToken,
-          ssn
+          user
+          // ssn
         }); 
       } catch (error) {
         return res.status(500).json({ message: error.message });
