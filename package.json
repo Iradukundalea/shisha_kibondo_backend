@@ -8,8 +8,8 @@
     "db:migrate": "npx sequelize-cli db:migrate",
     "db:unmigrate": "npx sequelize-cli db:migrate:undo:all",
     "dev": "nodemon --exec babel-node  src/server.js",
-    "start": "npm run build && npm run db:migrate && seed:admin && node dist/server.js",
-    "seed:admin": "npx sequelize-cli db:seed --seed 20230520121119-seed-admin"
+    "seed:admin": "npx sequelize-cli db:seed --seed 20230520121119-seed-admin",
+    "start": "npm run build && npm run db:migrate && seed:admin && node dist/server.js"
   },
   "keywords": [],
   "author": "",
