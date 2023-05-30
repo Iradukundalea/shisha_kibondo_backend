@@ -30,12 +30,16 @@
       const newUser = await createUser(req.body)
 
       if(newUser){
-          const userToken = assignToken(user)
-      sendVerificationEmail(userToken, newUser)
+          // const userToken = assignToken(user)
+      // sendVerificationEmail(userToken, newUser)
 
     
     
-          return res.status(201).json({success:true,statusCode:201,regToken: userToken,data: newUser
+          return res.status(201).json({
+            success:true,
+            statusCode:201,
+            // regToken: userToken,
+            data: newUser
           });
           
         }
@@ -44,8 +48,32 @@
           return res.json({success: false, statusCode: 500, error: error.message, message:'Internal server error'})
         }
         
-      }
+  }
 
+  const listNurses=async(req,res)=>{
+    const where = {
+      role: 'Nurse'
+    }
+
+    const response = await User.findAll({
+        where
+    })
+
+    // remove password to response
+    for(let respData of response){
+        delete respData.get().password
+    }
+
+    if(!response.length){
+        return res.status(200).json({
+            message: 'Currently, no nurses found!'
+        })
+    }
+
+    return res.status(200).json({
+        response
+    })
+}
 
   // signup/umujyanama wubuzima
 
@@ -56,25 +84,27 @@
   
     try{ 
         const user = await userExist(email)
-    if(user){
-      return res.json({success: false, statusCode: 409, message: 'email already exists'})
-    }
-    const puser= await phoneExist(telephone)
-    if(puser){
-      return res.json({success: false, statusCode: 409, message: 'phone already exist'})
-    }
-    const newUser = await createUser(req.body)
+        if(user){
+          return res.json({success: false, statusCode: 409, message: 'email already exists'})
+        }
+        const puser= await phoneExist(telephone)
+        if(puser){
+          return res.json({success: false, statusCode: 409, message: 'phone already exist'})
+        }
+        const newUser = await createUser(req.body)
 
-    if(newUser){
-        const userToken = assignToken(user)
-    sendVerificationEmail(userToken, newUser)
+        if(newUser){
+            // const userToken = assignToken(user)
+            // sendVerificationEmail(userToken, newUser)
 
-  
-  
-        return res.status(201).json({success:true,statusCode:201,regToken: userToken,data: newUser
-        });
-        
-      }
+            return res.status(201).json({
+              success:true,
+              statusCode:201,
+              // regToken: userToken,
+              data: newUser
+            });
+            
+          }
   
       } catch (error) {
         return res.json({success: false, statusCode: 500, error: error.message, message:'Internal server error'})
@@ -111,10 +141,11 @@
         });
         
 
-        return delete user.get().password &&  res.status(200).json({
-          loginToken,
-          user
-          // ssn
+        return delete user.get().password 
+          &&  res.status(200).json({
+            loginToken,
+            user
+            // ssn
         }); 
       } catch (error) {
         return res.status(500).json({ message: error.message });
@@ -135,17 +166,18 @@
       }
     }
 
-    const getUser = async(req,res)=>{
-      try{
-          const users=await User.findAll()
-              return res.json(users)
-          }
+  const getUser = async(req,res)=>{
+    try{
+        const users=await User.findAll()
+            return res.json(users)
+        }
 
-          catch(err){
-              console.log(err)
-              return res.status(500).json({error:err.message})
-          }
+        catch(err){
+            console.log(err)
+            return res.status(500).json({error:err.message})
+        }
   }
+
   const verifyUser = async(req, res)=> {
     let data = {};
     
@@ -184,4 +216,14 @@ const countUsers = async (req, res) => {
 };
 
 
-  module.exports={addNurse,addAdvisor,login,getUser,verifyUser,getAllDoctors,countUsers,signout}
+  module.exports={
+    addNurse,
+    addAdvisor,
+    login,
+    getUser,
+    verifyUser,
+    getAllDoctors,
+    countUsers,
+    signout, 
+    listNurses
+  }

@@ -34,5 +34,5 @@ app.use("/api-docs", swaggerUI.serve, swaggerUI.setup(swaggerDocs));
 const PORT=process.env.PORT|| 4000
 
 app.listen(PORT,()=>{
-    console.log(`server connected on ${PORT}` );
+    console.log(`server connected on http://localhost:${PORT}` );
 })

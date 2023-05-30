@@ -219,7 +219,37 @@
  *              500:
  *                  description: Internal server error!
  * 
-
- 
+ * /list-advisors:
+ *      get:
+ *          tags: [Advisors]
+ *          security: 
+ *              - BearerToken: []
+ *          summary: This helps to list all advisors.
+ *          description: List advisors      
+ *          responses:
+ *              200:
+ *                  description: Advisors retrieved Successfully!
+ *              401: 
+ *                  description: Not authorized!
+ *              400:
+ *                  description: Bad request
+ *              500:
+ *                  description: Internal server error!
+ * 
+ * /list-nurses:
+ *      get:
+ *          tags: [Nurses]
+ *          
+ *          summary: This helps to list all nurses.
+ *          description: List nurses      
+ *          responses:
+ *              200:
+ *                  description: Nurses retrieved Successfully!
+ *              401: 
+ *                  description: Not authorized!
+ *              400:
+ *                  description: Bad request
+ *              500:
+ *                  description: Internal server error!
  * 
   */

@@ -50,4 +50,21 @@ const addBeneficial = async (req, res) => {
   }
 };
 
-module.exports = { addBeneficial };
+const listBeneficials = async (req, res) =>{
+  try {
+    const response = await beneficial.findAll()
+    if(!response.length){
+      return res.status(200).json({
+        message: 'No beneficial records found at this moment.'
+      });
+    }
+    return res.status(200).json({
+      response
+    });
+  } catch (error) {
+    console.error(error);
+    return res.status(500).json(error);
+  }
+}
+
+module.exports = { addBeneficial, listBeneficials };
