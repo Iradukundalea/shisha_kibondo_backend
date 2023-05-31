@@ -4,7 +4,7 @@ const addGuardian = async (req, res) => {
   const {
     identityNumber,
     firstName,
-    lastName, 
+    lastName,
     telephone,  
     sex,
     province,
@@ -14,14 +14,19 @@ const addGuardian = async (req, res) => {
     village
    
   } = req.body;
-  const  beneficialId = req.user.id
+  const { beneficialId } = req.params
+  const  nurseId = req.user.id
 
+  const condition = {
+    id: nurseId,
+    role: 'Nurse'
+  }
   try {
-    const nurse = await User.findOne({ where: { id: beneficialId } });
+    const nurse = await User.findOne({ where: condition });
     if (!nurse) {
-      return res.status(400).json({ message: 'You are not allowed to add a guardian.' });
+      return res.status(400).json({ message: 'You are not allowed to add a guardian, Only Nurse' });
     }
-    const benef=await Guardian.findOne({where:{identityNumber}})
+    const benef=await Guardian.findOne({where: { identityNumber }})
     if (benef) {
       return res.status(400).json({message:'guardian already exist'})
     }
@@ -35,7 +40,9 @@ const addGuardian = async (req, res) => {
         district,
         sector,
         cell,
-        village
+        village,
+        beneficialId,
+        nurseId
     });
 
     return res.status(200).json(createdBeneficial);

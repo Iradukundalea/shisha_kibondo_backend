@@ -12,8 +12,7 @@ module.exports = (sequelize, DataTypes) => {
     static associate(models) {
       // define association here
 
-      this.belongsTo(models.beneficial,{foreignKey:'beneficialId'})
-
+      this.belongsTo(models.beneficial,{ foreignKey:'beneficialId' })
     }
   }
   Guardian.init({
@@ -23,7 +22,15 @@ module.exports = (sequelize, DataTypes) => {
       primaryKey: true,
       type: DataTypes.UUID
     },
-    identityNumber:{
+    nurseId:{
+      type:DataTypes.UUID,
+      allowNull: false,
+      references: {
+        model: 'users',
+        key: 'id'
+      },
+    },
+    identityNumber: {
       type:DataTypes.DECIMAL,
       allowNull:false,
     },
@@ -37,7 +44,7 @@ module.exports = (sequelize, DataTypes) => {
       type:DataTypes.INTEGER,
       allowNull:false
     },
-    sex:{
+    sex: {
       type: DataTypes.ENUM('male', 'female', 'other..'),
       allowNull: false,
       defaultValue: 'other..'
@@ -65,8 +72,11 @@ module.exports = (sequelize, DataTypes) => {
     beneficialId:{
       type:DataTypes.UUID,
       allowNull: false,
-      defaultValue:DataTypes.UUIDV4,
-    }
+      references: {
+        model: 'beneficials',
+        key: 'id'
+      },
+    },
   }, {
     sequelize,
     modelName: 'Guardian',

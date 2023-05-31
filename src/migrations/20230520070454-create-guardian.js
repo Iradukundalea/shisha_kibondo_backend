@@ -9,7 +9,15 @@ module.exports = {
         primaryKey: true,
         type: DataTypes.UUID
       },
-      identityNumber:{
+      nurseId:{
+        type:DataTypes.UUID,
+        allowNull: false,
+        references: {
+          model: 'users',
+          key: 'id'
+        },
+      },
+      identityNumber: {
         type:DataTypes.DECIMAL,
         allowNull:false,
       },
@@ -19,11 +27,11 @@ module.exports = {
       lastName: {
         type:DataTypes.STRING
       },
-      telephone:{
+      telephone: {
         type:DataTypes.INTEGER,
         allowNull:false
       },
-      sex:{
+      sex: {
         type: DataTypes.ENUM('male', 'female', 'other..'),
         allowNull: false,
         defaultValue: 'other..'
@@ -51,7 +59,10 @@ module.exports = {
       beneficialId:{
         type:DataTypes.UUID,
         allowNull: false,
-        defaultValue:DataTypes.UUIDV4,
+        references: {
+          model: 'beneficials',
+          key: 'id'
+        },
       },
       createdAt: {
         allowNull: false,

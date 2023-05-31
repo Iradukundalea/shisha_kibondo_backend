@@ -11,11 +11,12 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       // define association here
-      this.belongsTo(models.User,{foreignKey:'nurseId'})
+      this.belongsTo(models.User,{foreignKey:'nurseId', as:'nurse'})
       this.hasMany(models.Guardian, {
         foreignKey: 'beneficialId',
         onDelete: "CASCADE",
         onUpdate: "CASCADE",
+        as: 'guardians'
       });
     }
   }

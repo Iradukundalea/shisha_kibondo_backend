@@ -1,3 +1,4 @@
+const db = require('../models');
 const { beneficial, User } = require('../models');
 
 const addBeneficial = async (req, res) => {
@@ -67,4 +68,36 @@ const listBeneficials = async (req, res) =>{
   }
 }
 
-module.exports = { addBeneficial, listBeneficials };
+const beneficialDetails = async (req, res) =>{
+  const { beneficialId } = req.params
+
+  const include = [
+    {
+      model: db.User,
+      as: 'nurse',
+      attributes: {exclude: ['password']}
+    },
+    {
+      model: db.Guardian,
+      as: 'guardians'
+    }
+  ]
+
+  try {
+    const response = await beneficial.findOne({ where: {id: beneficialId}, include})
+    console.log('Details', response)
+    if(!Object.keys(response).length){
+      return res.status(200).json({
+        message: 'Beneficial record not found.'
+      });
+    }
+    return res.status(200).json({
+      response
+    });
+  } catch (error) {
+    console.error(error);
+    return res.status(500).json(error);
+  }
+}
+
+module.exports = { addBeneficial, listBeneficials, beneficialDetails };

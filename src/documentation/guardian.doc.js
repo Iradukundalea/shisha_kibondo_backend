@@ -1,14 +1,17 @@
 /**
  * @swagger
  * 
- * /addGuardian:
+ * /beneficials/{beneficialId}/addGuardian:
  *      post:
  *          security:
  *              - BearerToken: []
-
  *          tags: [guardian]
  *          summary: This helps to add beneficial.
  *          description: guardian registration!
+ *          parameters:
+ *              - name: beneficialId
+ *                in: path
+ *                required: true
  *          requestBody:
  *              description: add a new guardian
  *              required: true
@@ -27,7 +30,6 @@
  *                               type: string 
  *                           sex:
  *                               type: string 
- *   
  *                           province:
  *                               type: string 
  *                           district:
@@ -38,14 +40,6 @@
  *                               type: string 
  *                           village:
  *                               type: string 
- 
-
-
-
-
-
-
-  
  *                       
  *          responses:
  *              201:
