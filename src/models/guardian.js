@@ -13,6 +13,7 @@ module.exports = (sequelize, DataTypes) => {
       // define association here
 
       this.belongsTo(models.beneficial,{ foreignKey:'beneficialId' })
+      this.belongsTo(models.User,{foreignKey:'nurseId'})
     }
   }
   Guardian.init({

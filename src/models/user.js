@@ -31,6 +31,7 @@ module.exports = (sequelize, DataTypes) => {
         onDelete: "CASCADE",
         onUpdate: "CASCADE",
       });
+      this.hasMany(models.Guardian,{foreignKey:'nurseId'});
     } 
   }
   User.init({
