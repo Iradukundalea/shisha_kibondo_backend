@@ -18,6 +18,11 @@ module.exports = (sequelize, DataTypes) => {
         onUpdate: "CASCADE",
         as: 'guardians'
       });
+      this.hasMany(models.Product_taken, {
+        foreignKey: 'beneficialId',
+        onDelete: "CASCADE",
+        onUpdate: "CASCADE",
+      });
     }
   }
   beneficial.init({
