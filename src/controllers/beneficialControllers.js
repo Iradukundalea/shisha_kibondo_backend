@@ -1,4 +1,4 @@
-const { beneficial, User } = require('../models');
+const { beneficial, User,Product_taken } = require('../models');
 
 const addBeneficial = async (req, res) => {
   const {

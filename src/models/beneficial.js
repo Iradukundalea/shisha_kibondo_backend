@@ -12,7 +12,8 @@ module.exports = (sequelize, DataTypes) => {
     static associate(models) {
       // define association here
       this.belongsTo(models.User,{foreignKey:'nurseId'})
-      this.hasMany(models.Guardian, {
+
+      this.hasMany(models.Product_taken, {
         foreignKey: 'beneficialId',
         onDelete: "CASCADE",
         onUpdate: "CASCADE",
