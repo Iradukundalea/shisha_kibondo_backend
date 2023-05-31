@@ -1,4 +1,5 @@
-const { beneficial, User,Product_taken } = require('../models');
+const { beneficial, User } = require('../models');
+import db from '../models';
 
 const addBeneficial = async (req, res) => {
   const {
@@ -84,7 +85,7 @@ const beneficialDetails = async (req, res) =>{
 
   try {
     const response = await beneficial.findOne({ where: {id: beneficialId}, include})
-    console.log('Details', response)
+
     if(!Object.keys(response).length){
       return res.status(200).json({
         message: 'Beneficial record not found.'
