@@ -1,13 +1,14 @@
 import express from'express'
-const app=express()
 import authRoute from'./routes/authRoutes'
-import {beneficial} from './routes/beneficialRoute'
-import {guardian} from './routes/guardianRoute'
-import {product} from './routes/productRoute'
+import { beneficial } from './routes/beneficialRoute'
+import { guardian } from './routes/guardianRoute'
+import { product } from './routes/productRoute'
 
 import swaggerUI from'swagger-ui-express'
 import swaggerDocs from'./documentation'
 import cors from 'cors'
+
+const app=express()
 
 var bodyParser = require('body-parser');
 
@@ -27,14 +28,10 @@ app.use('/api',beneficial)
 app.use('/api',guardian)
 app.use('/api', product)
 
-
-
-
-
 app.use("/api-docs", swaggerUI.serve, swaggerUI.setup(swaggerDocs));
 
-const PORT=process.env.PORT|| 4000
+const PORT = process.env.PORT || 4000
 
-app.listen(PORT,()=>{
+app.listen(PORT, ()=>{
     console.log(`server connected on http://localhost:${PORT}` );
 })
