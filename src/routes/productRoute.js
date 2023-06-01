@@ -1,14 +1,14 @@
 import express  from "express";
-const product=express()
-
 import productCont from '../controllers/productcontroller'
 import isAuthenticated from '../middlewares/Authorization'
 
+const product = express.Router()
 
+product.post('/products/add-category', isAuthenticated, productCont.addProductCategories)
+product.get('/products/list-category', productCont.listProduct)
+product.post('/products/:productCategoryId/add-product', isAuthenticated, productCont.addNewProduct)
 
-product.post('/add/product',isAuthenticated, productCont.addProduct)
-product.get('/product/getPdoduct',productCont.listProduct)
-product.post('/product/take',isAuthenticated, productCont.takeProduct)
+product.post('/donate-product-to-beneficial/:productCategoryId/:beneficialId', isAuthenticated, productCont.donateProductToBeneficial)
 
-module.exports={product}
+module.exports = { product }
 

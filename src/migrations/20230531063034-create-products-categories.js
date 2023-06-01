@@ -2,43 +2,37 @@
 /** @type {import('sequelize-cli').Migration} */
 module.exports = {
   async up(queryInterface, DataTypes) {
-    await queryInterface.createTable('Products', {
+    await queryInterface.createTable('ProductCategories', {
       id: {
         allowNull: false,
-        defaultValue:DataTypes.UUIDV4,
+        defaultValue: DataTypes.UUIDV4,
         primaryKey: true,
         type: DataTypes.UUID
       },
-      Name: {
-        type:DataTypes.STRING
-      },
-   
-    quantity :
-    {
-      type:DataTypes.INTEGER
-    },
-    date:{
-      type:DataTypes.STRING
-    },
-    expired_date:{
-      type:DataTypes.STRING
-    },
-    nurse_id:{
-      type:DataTypes.UUID,
+      nurseId: {
+        type: DataTypes.UUID,
         allowNull: false,
-        defaultValue:DataTypes.UUIDV4,
-    },
+        references: {
+          model: 'users',
+          key: 'id'
+        }
+      },
+      name: {
+        type: DataTypes.STRING,
+        allowNull: false,
+        
+      },
      createdAt: {
         allowNull: false,
         type: DataTypes.DATE
       },
-      updatedAt: {
+     updatedAt: {
         allowNull: false,
         type: DataTypes.DATE
       }
     });
   },
   async down(queryInterface, DataTypes) {
-    await queryInterface.dropTable('Products');
+    await queryInterface.dropTable('ProductCategories');
   }
 };
