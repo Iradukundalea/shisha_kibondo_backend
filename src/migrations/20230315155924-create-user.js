@@ -44,6 +44,27 @@ module.exports = {
         type:DataTypes.STRING,
         allowNull:false
       },
+      province:{
+        type:DataTypes.STRING,
+        allowNull:false
+       },
+       district:{
+         type:DataTypes.STRING,
+         allowNull:false
+       },
+       sector:{
+         type:DataTypes.STRING,
+         allowNull:false
+       },
+       cell:{
+         type:DataTypes.STRING,
+         allowNull:false
+       },
+       village:{
+         type:DataTypes.STRING,
+         allowNull:false
+       },
+      
       createdAt: {
         allowNull: false,
         type: DataTypes.DATE
