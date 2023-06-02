@@ -10,6 +10,11 @@ const schema = {
     telephone: Joi.string(),
     sex:Joi.string(),
     degree:Joi.string(),
+    province:Joi.string(),
+    district:Joi.string(),
+    sector:Joi.string(),
+    cell:Joi.string(),
+    village:Joi.string(),
                 
                 
       firstName: Joi.string()

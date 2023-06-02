@@ -14,7 +14,7 @@
   // signup/nurse
 
   const addNurse=async(req,res)=>{
-      const{firstName,lastName,sex,degree,email,telephone,password,specialized}=req.body
+      const{firstName,lastName,sex,degree,email,telephone,password,specialized,province,district,sector,cell,village}=req.body
 
       req.body.role = 'Nurse'
     
@@ -78,7 +78,7 @@
   // signup/umujyanama wubuzima
 
   const addAdvisor=async(req,res)=>{
-    const{firstName,lastName,sex,degree,email,telephone,password,specialized}=req.body
+    const{firstName,lastName,sex,degree,email,telephone,password,specialized,province,district,sector,cell,village}=req.body
 
     req.body.role = 'umujyanama wubuzima'
   
