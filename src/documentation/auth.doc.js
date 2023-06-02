@@ -33,6 +33,18 @@
  *                               type: string
  *                           degree:
  *                               type: string
+ * 
+ *                           province:
+ *                               type: string 
+ *   
+ *                           district:
+ *                               type: string 
+ *                           sector:
+ *                               type: string
+ *                           cell:
+ *                               type: string
+ *                           village:
+ *                               type: string
 
   
  *                       
@@ -76,6 +88,18 @@
  *                               type: string
  *                           degree:
  *                               type: string
+ *                           province:
+ *                               type: string 
+ *   
+ *                           district:
+ *                               type: string 
+ *                           sector:
+ *                               type: string
+ *                           cell:
+ *                               type: string
+ *                           village:
+ *                               type: string
+
 
   
  *                       
