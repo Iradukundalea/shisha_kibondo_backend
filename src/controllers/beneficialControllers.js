@@ -100,4 +100,21 @@ const beneficialDetails = async (req, res) =>{
   }
 }
 
-module.exports = { addBeneficial, listBeneficials, beneficialDetails };
+const listTakingUpRecords = async(req, res)=>{
+  const include = [{
+    model: db.ProductCategories,
+    as: 'category'
+  }]
+
+  const response = await db.StockOut.findAll({include})
+  return res.status(200).json({
+    response
+  })
+}
+
+module.exports = { 
+  addBeneficial, 
+  listBeneficials, 
+  beneficialDetails, 
+  listTakingUpRecords 
+};

@@ -112,4 +112,21 @@
  *              500:
  *                  description: Internal server error!
  * 
+ * /beneficials/{beneficialId}/taking-up:
+ *      get:
+ *          tags: [beneficial]
+ *          summary: This helps to see details of a specific beneficial.
+ *          description: See Details of beneficial.
+ *          parameters: 
+ *              - name: beneficialId
+ *                in: path
+ *                required: true
+ *          responses:
+ *              200:
+ *                  description: Beneficial details successfully!
+ *              400:
+ *                  description: Bad request
+ *              500:
+ *                  description: Internal server error!
+ * 
  */

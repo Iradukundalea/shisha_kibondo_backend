@@ -9,6 +9,11 @@ module.exports = (sequelize, DataTypes) => {
       this.belongsTo(models.User, { foreignKey: 'nurseId' })
       this.belongsTo(models.ProductCategories, { foreignKey: 'productCategoryId' })
       this.belongsTo(models.beneficial, { foreignKey: 'beneficialId' })
+      this.belongsTo(
+        models.ProductCategories, { 
+        foreignKey: 'productCategoryId', 
+        as: 'category'
+      })
     }
   }
   StockOut.init({
