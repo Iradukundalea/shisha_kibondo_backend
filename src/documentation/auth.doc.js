@@ -6,10 +6,10 @@
  *          tags: [Authentication]
  *          security:
  *              - BearerToken: []
- *          summary: This helps to register a new beneficial.
- *          description: beneficial registration!
+ *          summary: This helps to register a new nurse | Only Admin can register nurse.
+ *          description: Nurse registration!
  *          requestBody:
- *              description: Register a new beneficial
+ *              description: Register a new nurse
  *              required: true
  *              content:
  *                application/json:
@@ -44,10 +44,7 @@
  *                           cell:
  *                               type: string
  *                           village:
- *                               type: string
-
-  
- *                       
+ *                               type: string   
  *          responses:
  *              201:
  *                  description: Successfully user craeted!
@@ -263,7 +260,8 @@
  * /list-nurses:
  *      get:
  *          tags: [Nurses]
- *          
+ *          security:
+ *              - BearerToken: []
  *          summary: This helps to list all nurses.
  *          description: List nurses      
  *          responses:
