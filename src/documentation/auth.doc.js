@@ -55,13 +55,13 @@
  * 
  * /signup/advisor:
  *      post:
- *          tags: [Authentication]
+ *          tags: [Advisors]
  *          security:
  *              - BearerToken: []
- *          summary: This helps to register a new beneficial.
- *          description: beneficial registration!
+ *          summary: This helps to register a new advisor (umujyanama w'ubuzima) | Only Admin can register new Advisor.
+ *          description: Advisor registration!
  *          requestBody:
- *              description: Register a new beneficial
+ *              description: Register a new advisor
  *              required: true
  *              content:
  *                application/json:
@@ -245,8 +245,25 @@
  *          tags: [Advisors]
  *          security: 
  *              - BearerToken: []
- *          summary: This helps to list all advisors.
+ *          summary: This helps to list all advisors | Only Admin.
  *          description: List advisors      
+ *          responses:
+ *              200:
+ *                  description: Advisors retrieved Successfully!
+ *              401: 
+ *                  description: Not authorized!
+ *              400:
+ *                  description: Bad request
+ *              500:
+ *                  description: Internal server error!
+ * 
+ * /list-advisors/my-region:
+ *      get:
+ *          tags: [Advisors]
+ *          security: 
+ *              - BearerToken: []
+ *          summary: This helps to list all advisors but in my Region (have province, district, sector, cell and village as Mine).
+ *          description: List Region advisors      
  *          responses:
  *              200:
  *                  description: Advisors retrieved Successfully!

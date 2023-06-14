@@ -40,6 +40,8 @@ router.get('/reset-password/:token', passwd.getResetPassword)
 router.get('/Number_of_users', usercont.countUsers)
 
 router.get('/list-advisors', isAuthenticated, isAdmin, advisorController.getAllAdvisors)
+router.get('/list-advisors/my-region', isAuthenticated, advisorController.getAllAdvisorsInMyRegion)
+
 router.get('/list-nurses', isAuthenticated, isAdmin, usercont.listNurses)
 
 

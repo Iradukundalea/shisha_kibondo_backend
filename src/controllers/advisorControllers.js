@@ -3,13 +3,15 @@ const {User,doctors,medical_consultation}=require("../models")
 const assignToken =require( '../helpers/assignToken');
 const verifyToken =require( '../helpers/verifyToken');
 import sendVerificationEmail from '../helpers/sendEmail/sendVerificationEmail';
+import { findAllAdvisorsInMyRegion } from '../service/userServices'
+import { Op } from 'sequelize';
 
 require('dotenv').config();
 
 const { phoneExist, userExist,createUser,verifyUserAccount,createUserSession,deleteSession } =require('../service/userServices');
 const bcrypt=require( 'bcrypt');
-
 export default class AdvisorController{
+
     static async getAllAdvisors(req, res){
         const where = {
             role: 'umujyanama wubuzima'
@@ -27,6 +29,25 @@ export default class AdvisorController{
         if(!response.length){
             return res.status(200).json({
                 message: 'Currently, no advisor found!'
+            })
+        }
+
+        return res.status(200).json({
+            response
+        })
+    }
+
+    static async getAllAdvisorsInMyRegion(req, res){
+        const response = await findAllAdvisorsInMyRegion(req.user.id)
+        
+        // remove password to response
+        for(let respData of response){
+            delete respData.get().password
+        }
+
+        if(!response.length){
+            return res.status(200).json({
+                message: `Currently, no advisor found in your region: ${req.user.province}, ${ req.user.district}, ${ req.user.sector}, ${ req.user.cell}, ${ req.user.village}!`
             })
         }
 

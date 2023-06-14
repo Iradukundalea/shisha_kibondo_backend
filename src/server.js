@@ -3,10 +3,12 @@ import authRoute from'./routes/authRoutes'
 import { beneficial } from './routes/beneficialRoute'
 import { guardian } from './routes/guardianRoute'
 import { product } from './routes/productRoute'
+import notification from './routes/notificationRoute'
 
 import swaggerUI from'swagger-ui-express'
 import swaggerDocs from'./documentation'
 import cors from 'cors'
+import io from './utils/socket'
 
 const app=express()
 
@@ -27,11 +29,14 @@ app.use('/api',authRoute)
 app.use('/api',beneficial)
 app.use('/api',guardian)
 app.use('/api', product)
+app.use('/api', notification)
 
 app.use("/api-docs", swaggerUI.serve, swaggerUI.setup(swaggerDocs));
 
 const PORT = process.env.PORT || 4000
 
-app.listen(PORT, ()=>{
+export const server = app.listen(PORT, ()=>{
     console.log(`server connected on http://localhost:${PORT}` );
 })
+
+io.attach(server)

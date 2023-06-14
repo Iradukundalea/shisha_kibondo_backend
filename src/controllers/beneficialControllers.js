@@ -1,5 +1,7 @@
 const { beneficial, User } = require('../models');
 import db from '../models';
+import { findAllAdvisorsInMyRegion, getAdvisorsInBeneficialRegion } from '../service/userServices';
+import sendNotification from '../utils/sendNotification';
 
 const addBeneficial = async (req, res) => {
   const {
@@ -28,7 +30,7 @@ const addBeneficial = async (req, res) => {
     if (benef) {
       return res.status(400).json({message:'beneficial already exist'})
     }
-       const createdBeneficial = await beneficial.create({
+    const createdBeneficial = await beneficial.create({
       identityNumber,
       firstName,
       lastName,
@@ -43,6 +45,22 @@ const addBeneficial = async (req, res) => {
       village,
       nurseId
     });
+
+    // Notify Advisors in same region as beneficial
+    let userIds = []
+    const advisors = await getAdvisorsInBeneficialRegion(createdBeneficial.id)
+    for (let advisor of advisors){
+      userIds.push(advisor.id)
+    }
+
+    if(userIds.length){
+      await sendNotification({
+        title: 'A new benefical added into the system',
+        message: `We got new beneficial '${createdBeneficial.firstName} ${createdBeneficial.lastName}', so reach out and explain more!`,
+        userIds
+      })
+
+    }
 
     return res.status(200).json(createdBeneficial);
   } catch (error) {

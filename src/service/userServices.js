@@ -1,6 +1,6 @@
-import {User, UserSession} from '../models';
+import { User, UserSession, beneficial } from '../models';
 import bcrypt from 'bcrypt';
-
+import { Op } from 'sequelize';
 
   const userExist = async(email)=>{
     const user = await User.findOne({
@@ -69,7 +69,73 @@ import bcrypt from 'bcrypt';
     })
     return sessions
   }
+
+  /**
+   * @returns {array} All advisors found in my region 
+   * (meaning having same province, district, sector, cell, and village as Mine)
+   */
+  const findAllAdvisorsInMyRegion = async (userId)=>{
+    const currentUsetInfo = await User.findOne({ where: { id: userId}})
+    const user = currentUsetInfo.get()
+    console.log('currentUsetInfo', {
+      province: user.province,
+      district: user.district,
+      sector: user.sector,
+      cell: user.cell,
+      village: user.village
+    })
+    const response = await User.findAll({ 
+      where: { 
+        id: {[Op.not]: userId }, 
+        role: 'umujyanama wubuzima',
+        province: user.province,
+        district: user.district,
+        sector: user.sector,
+        cell: user.cell,
+        village: user.village
+      }
+      })
+
+    return response
+    
+  }
+
+  const getAdvisorsInBeneficialRegion = async (userId)=>{
+    const currentUsetInfo = await beneficial.findOne({ where: { id: userId}})
+    const user = currentUsetInfo.get()
+    console.log('currentUsetInfo', {
+      province: user.province,
+      district: user.district,
+      sector: user.sector,
+      cell: user.cell,
+      village: user.village
+    })
+    const response = await User.findAll({ 
+      where: { 
+        id: {[Op.not]: userId }, 
+        role: 'umujyanama wubuzima',
+        province: user.province,
+        district: user.district,
+        sector: user.sector,
+        cell: user.cell,
+        village: user.village
+      }
+      })
+
+    return response
+    
+  }
  
 
   
-export{userExist, createUser, phoneExist,verifyUserAccount,createUserSession,deleteSession,getUserSessions}
+export{
+  userExist, 
+  createUser, 
+  phoneExist,
+  verifyUserAccount,
+  createUserSession,
+  deleteSession,
+  getUserSessions, 
+  findAllAdvisorsInMyRegion,
+  getAdvisorsInBeneficialRegion
+}
