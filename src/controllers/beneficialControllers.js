@@ -1,6 +1,9 @@
 const { beneficial, User } = require('../models');
 import db from '../models';
-import { findAllAdvisorsInMyRegion, getAdvisorsInBeneficialRegion } from '../service/userServices';
+import { 
+  getAdvisorsInBeneficialRegion, 
+  getBeneficialsInAdvisorRegion 
+} from '../service/userServices';
 import sendNotification from '../utils/sendNotification';
 
 const addBeneficial = async (req, res) => {
@@ -86,6 +89,23 @@ const listBeneficials = async (req, res) =>{
   }
 }
 
+const listBeneficialsInMyRegion = async(req, res)=>{
+  try {
+    const response = await getBeneficialsInAdvisorRegion(req.user.id)
+    if(!response.length){
+      return res.status(200).json({
+        message: 'No beneficial records found at this moment.'
+      });
+    }
+    return res.status(200).json({
+      response
+    });
+  } catch (error) {
+    console.error(error);
+    return res.status(500).json(error);
+  }
+}
+
 const beneficialDetails = async (req, res) =>{
   const { beneficialId } = req.params
 
@@ -134,5 +154,6 @@ module.exports = {
   addBeneficial, 
   listBeneficials, 
   beneficialDetails, 
-  listTakingUpRecords 
+  listTakingUpRecords,
+  listBeneficialsInMyRegion
 };

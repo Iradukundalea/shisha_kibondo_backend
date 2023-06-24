@@ -95,6 +95,21 @@
  *              500:
  *                  description: Internal server error!
  * 
+ * /getBeneficials/my-region:
+ *      get:
+ *          tags: [beneficial]
+ *          security:
+ *              - BearerToken: []
+ *          summary: This helps to list all beneficials that are in my region | Only Advisor.
+ *          description: List beneficials in my-region.                      
+ *          responses:
+ *              200:
+ *                  description: Beneficials retrieved successfully!
+ *              400:
+ *                  description: Bad request
+ *              500:
+ *                  description: Internal server error!
+ * 
  * /beneficials/{beneficialId}:
  *      get:
  *          tags: [beneficial]

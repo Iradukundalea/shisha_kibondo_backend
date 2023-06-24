@@ -7,7 +7,7 @@ const io = socket(server, {
 })
 
 io.use(async (socket, next)=>{
-    const { access_token } = socket.handshake.headers
+    const { access_token } = socket.handshake.auth
     try {
         if(access_token){
             const decodedToken = await verifyToken(access_token)

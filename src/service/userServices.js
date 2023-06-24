@@ -103,6 +103,26 @@ import { Op } from 'sequelize';
   const getAdvisorsInBeneficialRegion = async (userId)=>{
     const currentUsetInfo = await beneficial.findOne({ where: { id: userId}})
     const user = currentUsetInfo.get()
+
+    const response = await User.findAll({ 
+      where: { 
+        id: {[Op.not]: userId }, 
+        role: 'umujyanama wubuzima',
+        province: user.province,
+        district: user.district,
+        sector: user.sector,
+        cell: user.cell,
+        village: user.village
+      }
+      })
+
+    return response
+    
+  }
+
+  const getBeneficialsInAdvisorRegion = async (userId)=>{
+    const currentUsetInfo = await User.findOne({ where: { id: userId }})
+    const user = currentUsetInfo.get()
     console.log('currentUsetInfo', {
       province: user.province,
       district: user.district,
@@ -110,10 +130,8 @@ import { Op } from 'sequelize';
       cell: user.cell,
       village: user.village
     })
-    const response = await User.findAll({ 
+    const response = await beneficial.findAll({ 
       where: { 
-        id: {[Op.not]: userId }, 
-        role: 'umujyanama wubuzima',
         province: user.province,
         district: user.district,
         sector: user.sector,
@@ -137,5 +155,6 @@ export{
   deleteSession,
   getUserSessions, 
   findAllAdvisorsInMyRegion,
-  getAdvisorsInBeneficialRegion
+  getAdvisorsInBeneficialRegion,
+  getBeneficialsInAdvisorRegion
 }

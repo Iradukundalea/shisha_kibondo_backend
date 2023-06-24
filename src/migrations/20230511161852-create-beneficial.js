@@ -25,7 +25,7 @@ module.exports = {
         type:DataTypes.STRING
       },
       telephone:{
-        type:DataTypes.INTEGER,
+        type:DataTypes.STRING,
         allowNull:false
       },
       sex:{
