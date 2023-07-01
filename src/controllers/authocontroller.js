@@ -3,6 +3,7 @@
   const assignToken =require( '../helpers/assignToken');
   const verifyToken =require( '../helpers/verifyToken');
   import sendVerificationEmail from '../helpers/sendEmail/sendVerificationEmail';
+  import { sendInitialPassowrd } from '../helpers/sendEmail/sendVerificationEmail'
 
   require('dotenv').config();
 
@@ -30,10 +31,8 @@
       const newUser = await createUser(req.body)
 
       if(newUser){
-          // const userToken = assignToken(user)
-      // sendVerificationEmail(userToken, newUser)
 
-    
+          sendInitialPassowrd(newUser, password)
     
           return res.status(201).json({
             success:true,
@@ -94,8 +93,8 @@
         const newUser = await createUser(req.body)
 
         if(newUser){
-            // const userToken = assignToken(user)
-            // sendVerificationEmail(userToken, newUser)
+
+            sendInitialPassowrd(newUser, password)
 
             return res.status(201).json({
               success:true,
@@ -205,7 +204,7 @@
             console.log(err)
             return res.status(500).json({error:err.message})
         }
-}
+  }
 const countUsers = async (req, res) => {
   try {
     const count = await User.count();

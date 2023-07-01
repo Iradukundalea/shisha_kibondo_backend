@@ -139,12 +139,13 @@ const beneficialDetails = async (req, res) =>{
 }
 
 const listTakingUpRecords = async(req, res)=>{
+  const { beneficialId } = req.params
   const include = [{
     model: db.ProductCategories,
     as: 'category'
   }]
 
-  const response = await db.StockOut.findAll({include})
+  const response = await db.StockOut.findAll({where: { beneficialId }, include})
   return res.status(200).json({
     response
   })

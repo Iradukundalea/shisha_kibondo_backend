@@ -7,7 +7,8 @@ module.exports = (sequelize, DataTypes) => {
     static associate(models) {
       // define association here
       this.belongsTo(models.User, { foreignKey: 'nurseId'} )
-      this.hasMany(models.StockOut, { foreignKey: 'productCategoryId'})
+      this.hasMany(models.StockOut, { foreignKey: 'productCategoryId', as: 'stockOut'})
+      this.hasMany(models.StockIn, { foreignKey: 'productCategoryId', as: 'stockIn'})
     }
   }
 
@@ -20,7 +21,7 @@ module.exports = (sequelize, DataTypes) => {
     },
     nurseId: {
       type: DataTypes.UUID,
-      allowNull: false,
+      allowNull: true,
       references: {
         model: 'users',
         key: 'id'

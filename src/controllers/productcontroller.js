@@ -1,3 +1,4 @@
+const db = require('../models');
 const {  User, Products, beneficial, ProductCategories, StockIn, StockOut} = require('../models');
 const { default: ProductServices } = require('../service/productServices');
 
@@ -117,14 +118,78 @@ const donateProductToBeneficial = async (req, res) => {
 
 const listProduct = async (req, res) =>{
   try {
+    let updatedResponse = []
+
     const response = await ProductCategories.findAll()
     if(!response.length){
       return res.status(200).json({
         message: 'No product records found at this moment.'
       });
     }
+
+    for(const product of response){
+      const { totalQuantity } = await ProductServices.getQuantityByProductCategoryId(product.id)
+      product.get().totalQuantity = totalQuantity
+      updatedResponse.push(product)
+    }
     return res.status(200).json({
-      response
+      response: updatedResponse,
+    });
+  } catch (error) {
+    console.error(error);
+    return res.status(500).json(error);
+  }
+}
+
+const listProductDetails = async (req, res) =>{
+  const include = [
+    {
+      model: db.StockIn,
+      as: 'stockIn'
+    },
+    {
+      model: db.StockOut,
+      as: 'stockOut',
+      include: [
+        {
+          model: db.beneficial,
+          as: 'beneficial'
+        }
+      ]
+    }
+  ]
+  let transactions = []
+  const { productCategoryId } = req.params
+  try {
+    const response = await ProductCategories.findOne({ 
+      where: { id: productCategoryId }, 
+      include 
+    })
+    if(!Object.keys(response).length){
+      return res.status(404).json({
+        message: 'No product records found at this moment.'
+      });
+    }
+
+    const { totalQuantity } = await ProductServices.getQuantityByProductCategoryId(productCategoryId)
+    
+    // add stockin
+    for(const stockin of response.stockIn){
+      transactions.push(stockin)
+    }
+
+    // add stockout
+    for(const stockout of response.stockOut){
+      transactions.push(stockout)
+    }
+
+    response.get().totalQuantity = totalQuantity
+    response.get().transactions = transactions
+
+    // remove stockout and stockin attributes since we have transactions
+    delete response.get().stockOut && delete response.get().stockIn
+    return res.status(200).json({
+      response,
     });
   } catch (error) {
     console.error(error);
@@ -137,5 +202,6 @@ module.exports= {
   addProductCategories,
   listProduct,
   addNewProduct,
-  donateProductToBeneficial 
+  donateProductToBeneficial,
+  listProductDetails,
 }

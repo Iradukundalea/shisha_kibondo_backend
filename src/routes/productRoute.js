@@ -6,6 +6,7 @@ const product = express.Router()
 
 product.post('/products/add-category', isAuthenticated, productCont.addProductCategories)
 product.get('/products/list-category', productCont.listProduct)
+product.get('/products/:productCategoryId', productCont.listProductDetails)
 product.post('/products/:productCategoryId/add-product', isAuthenticated, productCont.addNewProduct)
 
 product.post('/donate-product-to-beneficial/:productCategoryId/:beneficialId', isAuthenticated, productCont.donateProductToBeneficial)

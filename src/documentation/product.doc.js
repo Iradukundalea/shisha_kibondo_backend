@@ -40,6 +40,23 @@
  *                  description: Bad request
  *              500:
  *                  description: Internal server error!
+ * 
+ * /products/{productCategoryId}:
+ *      get:
+ *          tags: [product]
+ *          summary: This helps to see product category details.
+ *          description: product category details!
+ *          parameters: 
+ *              - name: productCategoryId
+ *                in: path
+ *                required: true
+ *          responses:
+ *              200:
+ *                  description: Product Category Details retrieved!
+ *              400:
+ *                  description: Bad request
+ *              500:
+ *                  description: Internal server error!
 
 * 
  * /products/{productCategoryId}/add-product:
@@ -107,5 +124,7 @@
  *                  description: Bad request
  *              500:
  *                  description: Internal server error!
+ * 
+ * 
  * 
  */

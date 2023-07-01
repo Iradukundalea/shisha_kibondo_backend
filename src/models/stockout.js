@@ -8,7 +8,7 @@ module.exports = (sequelize, DataTypes) => {
       // define association here
       this.belongsTo(models.User, { foreignKey: 'nurseId' })
       this.belongsTo(models.ProductCategories, { foreignKey: 'productCategoryId' })
-      this.belongsTo(models.beneficial, { foreignKey: 'beneficialId' })
+      this.belongsTo(models.beneficial, { foreignKey: 'beneficialId', as: 'beneficial' })
       this.belongsTo(
         models.ProductCategories, { 
         foreignKey: 'productCategoryId', 
