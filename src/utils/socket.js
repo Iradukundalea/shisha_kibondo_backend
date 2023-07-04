@@ -11,7 +11,6 @@ io.use(async (socket, next)=>{
     try {
         if(access_token){
             const decodedToken = await verifyToken(access_token)
-            console.log('VVVEEEERRRRRRRRFFFFI', decodedToken.user.id)
             socket.userId = decodedToken.user.id
     
             return next()
@@ -39,6 +38,14 @@ io.on('connection', (socket)=>{
         };
     }
     console.log('ips', ipsconnected);
+
+    socket.on('disconnect', ()=> {
+      if (ipsconnected.hasOwnProperty(connectedSocketId)) {
+        delete ipsconnected[connectedSocketId];
+        
+        console.log('socket disconnected!')
+      }
+    })
 })
 
 export default io
