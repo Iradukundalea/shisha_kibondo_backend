@@ -1,6 +1,7 @@
 import generateHtmlTemplate from "../sendEmail/generateHtmlTemplate";
 import nodemailer from 'nodemailer'
-const sendResetEmail = async(user, link) =>{
+
+const sendResetPasswordEmail = async(user, link) =>{
     let transporter = nodemailer.createTransport({
         host: "smtp.gmail.com",
         port: 587,
@@ -12,11 +13,15 @@ const sendResetEmail = async(user, link) =>{
     })
 
   let info = await transporter.sendMail({
-    from: `"well be" <${process.env.USER_EMAIL}>`, // sender address
+    from: `"SHISHAKIBONDO" <${process.env.EMAIL}>`, // sender address
     to: `${user.email}`, // list of receivers
     subject: "Reset Password", // Subject line
     text: `${link}`, // plain text body
-    html: `<a href=${link}>Click here to reset your password</a>`
+    html: `
+    <p>Click the link below to follow the requirements to reset your password:</p>
+    <a href=${link}>Click here to reset your password</a>
+    <br>
+    `
     // html: generateHtmlTemplate(redirectLink, newUser.email) // html body
   }, function(error, info){
     if (error) {
@@ -36,4 +41,4 @@ const sendResetEmail = async(user, link) =>{
 
 }
 
-export default sendResetEmail
+export default sendResetPasswordEmail

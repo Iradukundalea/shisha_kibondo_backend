@@ -34,7 +34,10 @@ router.get('/users', usercont.getUser)
 
 router.get('/verify/:token', usercont.verifyUser)
 
-router.post('/forgot-password', isAuthenticated, passwd.requestResetPassword)
+router.post(
+    '/forgot-password',
+    passwd.requestResetPassword
+)
 router.post('/reset-password/:token', passwd.resetPassword)
 router.get('/reset-password/:token', passwd.getResetPassword)
 router.get('/Number_of_users', usercont.countUsers)

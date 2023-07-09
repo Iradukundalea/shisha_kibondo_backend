@@ -4,15 +4,19 @@ import { beneficial } from './routes/beneficialRoute'
 import { guardian } from './routes/guardianRoute'
 import { product } from './routes/productRoute'
 import notification from './routes/notificationRoute'
+import appointmentRoute from './routes/appointmentRoute'
 
 import swaggerUI from'swagger-ui-express'
 import swaggerDocs from'./documentation'
 import cors from 'cors'
 import io from './utils/socket'
+import path from 'path'
 
 const app=express()
 
 var bodyParser = require('body-parser');
+// Serve the static files from the Vite build output directory
+app.use(express.static(path.join(__dirname, 'dist')));
 
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
@@ -30,6 +34,7 @@ app.use('/api',beneficial)
 app.use('/api',guardian)
 app.use('/api', product)
 app.use('/api', notification)
+app.use('/api', appointmentRoute)
 
 app.use("/api-docs", swaggerUI.serve, swaggerUI.setup(swaggerDocs));
 

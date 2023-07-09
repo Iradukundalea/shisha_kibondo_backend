@@ -23,6 +23,7 @@ module.exports = (sequelize, DataTypes) => {
       });
       this.hasMany(models.Guardian,{foreignKey:'nurseId'});
       this.hasMany(models.ProductCategories, { foreignKey:'nurseId' });
+      this.hasMany(models.Appointment, { foreignKey:'nurseId', as: 'nurse' });
     } 
   }
   User.init({

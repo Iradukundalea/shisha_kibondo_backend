@@ -1,4 +1,4 @@
-import sendResetEmail from "../helpers/sendResetPasswordEmail/sendResetEmail";
+import sendResetPasswordEmail from "../helpers/sendResetPasswordEmail/sendResetEmail";
 import assignToken from "../helpers/assignToken"
 import verifyToken from "../helpers/verifyToken"
 import { userExist } from "../service/userServices";
@@ -6,7 +6,7 @@ import bcrypt from 'bcrypt'
 
 const requestResetPassword = async( req, res)=>{
     try {
-        const {email} = req.body;
+        const { email } = req.body;
         
         //Check if the user(email) exist 
         const user = await userExist(email);
@@ -20,9 +20,13 @@ const requestResetPassword = async( req, res)=>{
 
         const token = await assignToken(user)
         //proceding with email to reset password
-        const redirectLink = `${process.env.BASE_URL}` + `/api/reset-password` + token
+        const encodedToken = encodeURIComponent(token);
+        
+        const redirectLink = `${process.env.BASE_URL}/api/reset-password/${encodedToken}`
+        // const redirectLink = `${process.env.BASE_URL}` + `/api/reset-password/` + token
+
         // console.log('reditrectLink', redirectLink)
-        sendResetEmail(user, redirectLink);
+        sendResetPasswordEmail(user, redirectLink);
 
         return res.status(200).json({message: "Email reset link sent successfully", resetToken: token});
 
@@ -35,10 +39,10 @@ const requestResetPassword = async( req, res)=>{
 
 const resetPassword = async(req, res)=>{
 
-    let {newPassword} = req.body;
-    let {confirmPassword} = req.body;
+    let { newPassword } = req.body;
+    let { confirmPassword } = req.body;
 
-    if(newPassword == confirmPassword){
+    if(newPassword === confirmPassword){
         try {
             let token = req.params.token;
             const data = await verifyToken(token)
@@ -46,12 +50,12 @@ const resetPassword = async(req, res)=>{
             if(user){
                 try {
                 if(newPassword == confirmPassword){
-                        //hash the new password
-                const hashedPassword= await bcrypt.hash(newPassword, 10);
-                //Update the user password
-                user.update({password: hashedPassword});
-                res.send("Password updated successfully")
-                // return res.status(200).json({message: "Password updated successfully", hashedPassword});
+                    //hash the new password
+                    const hashedPassword= await bcrypt.hash(newPassword, 10);
+                    //Update the user password
+                    user.update({password: hashedPassword});
+                    res.send("Password updated successfully")
+                    // return res.status(200).json({message: "Password updated successfully", hashedPassword});
                 }
     
                 } catch (error) {
@@ -73,11 +77,16 @@ const resetPassword = async(req, res)=>{
         res.send('passwords need to match')
         // return res.status(400).json({ message: `Ooops! Entered passwords doesn't match`});
     }
-    
 }
 
-const getResetPassword =(req, res)=>{
-res.render('reset-password')
+const getResetPassword = async (req, res)=>{
+    const { token } = req.params
+    const verified = await verifyToken(token)
+    if(verified.user){
+
+        res.send({message: 'you are verifying email', verified: verified.user})
+    }
+
 }
 
 

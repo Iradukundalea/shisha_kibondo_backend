@@ -100,6 +100,10 @@ import { Op } from 'sequelize';
     
   }
 
+  /**
+   * @params userId { string } - Beneficial Id
+   * @returns { array } - All advisors operates in the region beneficial registered!
+   */
   const getAdvisorsInBeneficialRegion = async (userId)=>{
     const currentUsetInfo = await beneficial.findOne({ where: { id: userId}})
     const user = currentUsetInfo.get()

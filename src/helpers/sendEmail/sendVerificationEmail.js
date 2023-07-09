@@ -15,7 +15,7 @@ const sendVerificationEmail = async(regToken, newUser) =>{
     })
 
   let info = await transporter.sendMail({
-    from: `"Smart health" <${process.env.EMAIL}>`, // sender address
+    from: `"SHISHAKIBONDO" <${process.env.EMAIL}>`, // sender address
     to: `${newUser.email}`, // list of receivers
     subject: "sucessfull", // Subject line
     text: "Hello world?", // plain text body
@@ -25,7 +25,7 @@ const sendVerificationEmail = async(regToken, newUser) =>{
 }
 
 export const sendInitialPassowrd = async(newUser, password, role) =>{
-   
+
   let transporter = nodemailer.createTransport({
       host: "smtp.gmail.com",
       port: 587,
@@ -37,7 +37,7 @@ export const sendInitialPassowrd = async(newUser, password, role) =>{
   })
 
 let info = await transporter.sendMail({
-  from: `"Smart health" <${process.env.EMAIL}>`, // sender address
+  from: `"SHISHAKIBONDO" <${process.env.EMAIL}>`, // sender address
   to: `${newUser.email}`, // list of receivers
   subject: "Account Credentials", // Subject line
   text: "Password for your account!", // plain text body
@@ -45,6 +45,5 @@ let info = await transporter.sendMail({
 });
 
 }
+
 export default sendVerificationEmail
-
-
