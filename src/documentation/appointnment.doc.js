@@ -46,4 +46,20 @@
  *                  500:
  *                      description: Internal Server Error
  * 
+ * /appointments:
+ *      get:
+ *          tags: [Appointment]
+ *          security:
+ *              - BearerToken: []
+ *          summary: This helps to assign appointment to a beneficiary.
+ *          description: Assign an appointment to beneficiary
+ * 
+ *          responses:
+ *                  200:
+ *                      description: appointment scheduled successfully
+ *                  403:
+ *                      description: Not allowed
+ *                  500:
+ *                      description: Internal Server Error
+ * 
  */

@@ -15,4 +15,9 @@ appointment.post(
     AppointmentController.assignAppointment
 )
 
+appointment.get(
+    '/appointments', 
+    AppointmentController.getAllAppointmentsByAdmin
+)
+
 export default appointment

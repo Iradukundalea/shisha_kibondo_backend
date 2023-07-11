@@ -31,7 +31,7 @@ module.exports = {
         defaultValue: 'scheduled'
       },
       appointmentDate: {
-        type: Sequelize.DATE,
+        type: Sequelize.STRING,
         allowNull: false
       },
       createdAt: {

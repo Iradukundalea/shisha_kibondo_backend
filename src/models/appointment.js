@@ -40,7 +40,7 @@ module.exports = (sequelize, DataTypes) => {
       defaultValue: 'scheduled'
     },
     appointmentDate: {
-      type: DataTypes.DATE,
+      type: DataTypes.STRING,
       allowNull: false
     },
     

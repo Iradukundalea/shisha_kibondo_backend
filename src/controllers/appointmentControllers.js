@@ -31,6 +31,12 @@ export default class AppointmentController {
                 return res.status(400).json({ message: 'You are not allowed to assign appointment to beneficiary, only nurse.' });
             }
 
+            // check if there is another scheduled appointment
+            const existAppointment = await db.Appointment.findOne({ where: { beneficialId, status: 'scheduled'}})
+            if(existAppointment){
+                return res.status(409).json({ message: 'Already has a scheduled appointment!'})
+            }
+
             if(nurseId && beneficialId && appointmentDate){
                 // schedule the appointment
                 const response = await db.Appointment.create({
@@ -51,14 +57,26 @@ export default class AppointmentController {
                 for(let advisor of advisors){
                     sendSMS(`${advisor.telephone}`, message)
                 }
-            
                 return res.status(201).json({ response })
     
             }
             return res.status(400).json({ error: 'Please provided needed parameters.' })
 
         }catch(error){
-            return res.status(500).json({ error })
+            return res.status(500).json({ error: error.message })
         }
+    }
+
+     static async getAllAppointmentsByAdmin(req, res) {
+        const include = {
+            model: db.beneficial,
+            as: 'beneficial'
+        }
+
+        const response = await db.Appointment.findAll({ include })
+        if(!response.length){
+            return res.status(200).json({ message: 'No appointments found at this moment.' })
+        }
+        return res.status(200).json({ response })
     }
 }
