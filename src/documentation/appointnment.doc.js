@@ -51,7 +51,7 @@
  *          tags: [Appointment]
  *          security:
  *              - BearerToken: []
- *          summary: This helps to assign appointment to a beneficiary.
+ *          summary: This helps to list all appointments.
  *          description: Assign an appointment to beneficiary
  * 
  *          responses:

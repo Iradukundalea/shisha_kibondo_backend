@@ -26,7 +26,7 @@ module.exports = {
         },
       },
       status: {
-        type: Sequelize.ENUM('scheduled', 'ongoing', 'no show', 'completed'),
+        type: Sequelize.ENUM('scheduled', 'ongoing', 'no show', 'obeyed'),
         allowNull: false,
         defaultValue: 'scheduled'
       },

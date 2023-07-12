@@ -79,4 +79,48 @@ export default class AppointmentController {
         }
         return res.status(200).json({ response })
     }
+
+    static async updateAppointmentStatus(req, res){
+        const { appointmentId } = req.params
+        const { status } = req.body
+        const { id: nurseId } = req.user
+
+        try{
+            // check current logged in user if s/he is a nurse
+            const nurse = await db.User.findOne({ where: { id: nurseId } });
+            if (!nurse) {
+                return res.status(400).json({ message: 'You are not allowed to assign appointment to beneficiary, only nurse.' });
+            }
+
+            const response  = await db.Appointment.findOne({where: { id:appointmentId }})
+            if(!Object.keys(response).length){
+                return res.status(404).json({
+                    error: 'Appointment to change status not found!'
+                })
+            }
+
+            let appointmentTimestamp = new Date(response.appointmentDate).getTime()
+            let timeStamp = new Date().getTime()
+            if(status === 'obeyed'){
+                appointmentTimestamp = new Date(response.appointmentDate).getTime()
+                    timeStamp = new Date().getTime()
+                    if(appointmentTimestamp < timeStamp){
+                        return res.status(400).json({
+                            message: 'Appointment date is a wayback to today, so can not be obeyed now! '
+                        })
+                    }
+            }
+
+            // change the status
+            response.update({ status })
+            
+            return res.status(200).json({
+                response,
+            })
+        } catch(error){
+            return res.status(500).json({
+                error,
+            })
+        }
+    }
 }

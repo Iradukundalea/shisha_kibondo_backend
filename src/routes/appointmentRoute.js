@@ -20,4 +20,10 @@ appointment.get(
     AppointmentController.getAllAppointmentsByAdmin
 )
 
+appointment.put(
+    '/appointments/:appointmentId/change-status', 
+    isAuthenticated,
+    AppointmentController.updateAppointmentStatus
+)
+
 export default appointment
