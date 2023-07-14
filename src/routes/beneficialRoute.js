@@ -5,7 +5,8 @@ import {
     listBeneficials, 
     beneficialDetails, 
     listTakingUpRecords,
-    listBeneficialsInMyRegion
+    listBeneficialsInMyRegion,
+    reportBeneficial,
 }from '../controllers/beneficialControllers'
 import isAuthenticated from '../middlewares/Authorization'
 
@@ -14,6 +15,11 @@ beneficial.get('/getBeneficials', listBeneficials)
 beneficial.get('/getBeneficials/my-region', isAuthenticated, listBeneficialsInMyRegion)
 beneficial.get('/beneficials/:beneficialId', beneficialDetails)
 beneficial.get('/beneficials/:beneficialId/taking-up', listTakingUpRecords)
+beneficial.put(
+    '/beneficials/:beneficialId/report-use-abuse', 
+    isAuthenticated, 
+    reportBeneficial
+)
 
 
 module.exports={beneficial}

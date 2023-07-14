@@ -144,4 +144,22 @@
  *              500:
  *                  description: Internal server error!
  * 
+ * /beneficials/{beneficialId}/report-use-abuse:
+ *      put:
+ *          tags: [beneficial]
+ *          security: 
+ *              - BearerToken: []
+ *          summary: This helps advisor to report shishakibondo use abuse.
+ *          description: Report Beneficial.
+ *          parameters: 
+ *              - name: beneficialId
+ *                in: path
+ *                required: true
+ *          responses:
+ *              200:
+ *                  description: Beneficial reported successfully!
+ *              400:
+ *                  description: Bad request
+ *              500:
+ *                  description: Internal server error!
  */

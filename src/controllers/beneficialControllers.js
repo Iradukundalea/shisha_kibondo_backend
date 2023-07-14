@@ -151,10 +151,44 @@ const listTakingUpRecords = async(req, res)=>{
   })
 }
 
+const reportBeneficial = async(req, res)=>{
+  const { id: advisorId } = req.user
+  const { beneficialId } = req.params
+
+  try{
+    const advisor = await User.findOne({ where: { id: advisorId } });
+    if (!advisor) {
+      return res.status(400).json({ message: 'You are not allowed to report a beneficiary | only advisor' });
+    }
+
+    const response = await beneficial.findOne({ where: {id: beneficialId}})
+
+    if(!Object.keys(response).length){
+      return res.status(200).json({
+        message: 'Beneficial record not found.'
+      });
+    }
+
+    // change isReported attribute to true
+    await response.update({
+      isReported: true
+    })
+
+    return res.status(200).json({
+      response
+    })
+
+  }catch(error){
+
+  }
+  
+}
+
 module.exports = { 
   addBeneficial, 
   listBeneficials, 
   beneficialDetails, 
   listTakingUpRecords,
-  listBeneficialsInMyRegion
+  listBeneficialsInMyRegion,
+  reportBeneficial,
 };
