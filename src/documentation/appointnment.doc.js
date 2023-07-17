@@ -62,4 +62,18 @@
  *                  500:
  *                      description: Internal Server Error
  * 
+ * /appointments/overdue:
+ *      get:
+ *          tags: [Appointment]
+ *          summary: This helps to get overdue appointmnents.
+ *          description: Assign an appointment to beneficiary
+ * 
+ *          responses:
+ *                  200:
+ *                      description: appointment scheduled successfully
+ *                  403:
+ *                      description: Not allowed
+ *                  500:
+ *                      description: Internal Server Error
+ * 
  */

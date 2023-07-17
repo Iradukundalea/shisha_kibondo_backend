@@ -2,7 +2,8 @@ import db from "../models";
 import { getAdvisorsInBeneficialRegion } from '../service/userServices'
 import { sendSMS } from '../helpers/sendSMS'
 import BeneficialService from '../service/beneficialService'
-
+import AppointmentService from '../service/appointmentService'
+import { reminderJob } from '../helpers/appointment/reminderJob'
 export default class AppointmentController {
     static async getBeneficiaryAppointments(req, res) {
         const { beneficialId } = req.params
@@ -122,5 +123,20 @@ export default class AppointmentController {
                 error,
             })
         }
+    }
+
+    static async AppointmentReminders(req, res) {
+        const include = {
+            model: db.beneficial,
+            as: 'beneficial'
+        }
+
+        reminderJob.start()
+
+        const response = await AppointmentService.setReminder()
+        if(!response.length){
+            return res.status(200).json({ message: 'No appointments found at this moment.' })
+        }
+        return res.status(200).json({ reminder: response })
     }
 }

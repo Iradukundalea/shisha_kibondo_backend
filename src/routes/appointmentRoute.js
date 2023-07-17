@@ -26,4 +26,9 @@ appointment.put(
     AppointmentController.updateAppointmentStatus
 )
 
+appointment.get(
+    '/appointments/overdue', 
+    AppointmentController.AppointmentReminders
+)
+
 export default appointment
