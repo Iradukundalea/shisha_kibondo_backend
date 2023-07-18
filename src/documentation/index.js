@@ -4,9 +4,9 @@ const swaggerOptions = {
   swaggerDefinition: {
     openapi: "3.0.0",
     info: {
-      title: "SMART HEALTH",
+      title: "SHISHA KIBONDO",
       version: "1.0.0",
-      description: "Welcome to easy smart health",
+      description: "Welcome to easy shisha kibondo",
       license: {
         name: "Licensed Under MIT",
         url: "https://spdx.org/licenses/MIT.html",

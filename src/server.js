@@ -11,8 +11,6 @@ import swaggerDocs from'./documentation'
 import cors from 'cors'
 import io from './utils/socket'
 import path from 'path'
-const nodeCron = require("node-cron");
-import AppointmentService from './service/appointmentService'
 const reminderJob =require('./helpers/appointment/reminderJob')
 
 const app=express()
@@ -39,7 +37,7 @@ app.use('/api', product)
 app.use('/api', notification)
 app.use('/api', appointmentRoute)
 
-app.use("/api-docs", swaggerUI.serve, swaggerUI.setup(swaggerDocs));
+app.use("/", swaggerUI.serve, swaggerUI.setup(swaggerDocs));
 
 const PORT = process.env.PORT || 4000
 
@@ -47,25 +45,7 @@ export const server = app.listen(PORT, ()=>{
     console.log(`server connected on http://localhost:${PORT}` );
 })
 
-// const reminderJob = nodeCron.schedule(
-//     "* * * * * *",  
-//     async function jobYouNeedToExecute() {
-//         const beReminded = await AppointmentService.setReminder(); // Replace YourClass with the appropriate class or function name
-//         if (beReminded.length > 0) {
-//           // Do whatever you want when there are appointments to be reminded
-//           console.log("Appointments to be reminded:", beReminded);
-//           // Send email, make database backup, or perform other actions
-//         }
-//         console.log(new Date().toLocaleString());
-//       },{
-//         scheduled: false
-//       }
-    
-// );
-
-// reminderJob.start()
-
-// Start the cron job
+// Start a job
 reminderJob.start();
 
 io.attach(server)
