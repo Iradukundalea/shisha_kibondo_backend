@@ -6,7 +6,7 @@ module.exports = {
         "password": process.env.DEV_DB_PASSWORD,
         "database": process.env.DEV_DB_NAME,
         "host": process.env.DEV_DB_HOST,
-        "dialect": "mysql"
+        "dialect": "postgres" // mysql
       },
       production: {
         use_env_variable: 'PROD_URL', // postgres  DEV_DB_USERNAME

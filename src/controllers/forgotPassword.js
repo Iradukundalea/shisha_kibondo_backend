@@ -18,11 +18,11 @@ const requestResetPassword = async( req, res)=>{
             return res.status(403).json( {status: 403, message: 'This account is not verified!'});
         }
 
-        const token = await assignToken(user)
+        const token = await assignToken({id: user.id, email: user.email})
         //proceding with email to reset password
         const encodedToken = encodeURIComponent(token);
         
-        const redirectLink = `${process.env.BASE_URL}/api/reset-password/${encodedToken}`
+        const redirectLink = `${process.env.REDIRECT_FRONTEND_BASE_URL}/api/reset-password?token=${encodedToken}`
         // const redirectLink = `${process.env.BASE_URL}` + `/api/reset-password/` + token
 
         // console.log('reditrectLink', redirectLink)
@@ -54,28 +54,23 @@ const resetPassword = async(req, res)=>{
                     const hashedPassword= await bcrypt.hash(newPassword, 10);
                     //Update the user password
                     user.update({password: hashedPassword});
-                    res.send("Password updated successfully")
-                    // return res.status(200).json({message: "Password updated successfully", hashedPassword});
+                    return res.status(200).json({ success: true, message: "Password updated successfully"})
                 }
     
                 } catch (error) {
-                    res.send(`Ooops! Updating user password failed ${error.message}`)
-                // return res.status(500).json( {message: `Ooops! Updating user password failed ${error.message}`});
+                    return res.status(500).json({ success: false, message: `Ooops! Updating user password failed ${error.message}`});
                 }
     
             }else{
-                res.send(`Ooops! You can't update the user who doesn't exist ${error.message}`)
-                // return res.status(500).json( { message: `Ooops! You can't update the user who doesn't exist ${error.message}`} );
+                return res.status(500).json({ success: false, message: `Ooops! You can't update the user who doesn't exist ${error.message}`} );
             }
     
         } catch (error) {
-            res.send(`Ooops! Checking for password reset failed ${error.message}`)
-            // return res.status(500).json( { message: `Ooops! Checking for password reset failed ${error.message}`});
+            return res.status(500).json({ success: false, message: `Ooops! Checking for password reset failed ${error.message}`});
         }
 
     }else{
-        res.send('passwords need to match')
-        // return res.status(400).json({ message: `Ooops! Entered passwords doesn't match`});
+        return res.status(400).json({ success: false, message: `Ooops! Entered passwords doesn't match`});
     }
 }
 
