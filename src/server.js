@@ -12,6 +12,7 @@ import cors from 'cors'
 import io from './utils/socket'
 import path from 'path'
 const reminderJob =require('./helpers/appointment/reminderJob')
+import statistics from './routes/statisticsRoute'
 
 const app=express()
 
@@ -36,6 +37,7 @@ app.use('/api',guardian)
 app.use('/api', product)
 app.use('/api', notification)
 app.use('/api', appointmentRoute)
+app.use('/api', statistics)
 
 app.use("/", swaggerUI.serve, swaggerUI.setup(swaggerDocs));
 
