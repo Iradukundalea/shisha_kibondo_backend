@@ -91,7 +91,19 @@ module.exports = (sequelize, DataTypes) => {
     isReported: {
       type: DataTypes.BOOLEAN,
       defaultValue: false
-    }
+    },
+    height: {
+      type: DataTypes.DOUBLE,
+      allowNull: true
+    },
+    weight: {
+      type: DataTypes.DOUBLE,
+      allowNull: true
+    },
+    MUAC: {
+      type: DataTypes.DOUBLE,
+      allowNull: true
+    },
   }, {
     sequelize,
     modelName: 'beneficial',
