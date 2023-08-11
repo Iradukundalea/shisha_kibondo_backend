@@ -154,6 +154,7 @@ const listTakingUpRecords = async(req, res)=>{
 const reportBeneficial = async(req, res)=>{
   const { id: advisorId } = req.user
   const { beneficialId } = req.params
+  const { height, weight, MUAC } = req.body
 
   try{
     const advisor = await User.findOne({ where: { id: advisorId } });
@@ -171,7 +172,10 @@ const reportBeneficial = async(req, res)=>{
 
     // change isReported attribute to true
     await response.update({
-      isReported: true
+      isReported: true,
+      height,
+      weight,
+      MUAC: MUAC || response.MUAC
     })
 
     return res.status(200).json({
